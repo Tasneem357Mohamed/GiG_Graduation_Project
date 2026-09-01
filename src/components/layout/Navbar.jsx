@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useTheme } from '../hooks/useTheme';
-import styles from '../assets/styles/Navbar.module.css';
+import { useTheme } from '../../hooks/useTheme';
+import styles from '../../assets/styles/Navbar.module.css';
 
 /* ─── Inline SVG Icons ─── */
 
