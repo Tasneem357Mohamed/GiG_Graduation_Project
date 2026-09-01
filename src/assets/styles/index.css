@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg: #FAFAFA;
+  --color-accent: #CDBB88;
+  --color-text: #262D4D;
+}
+
+.dark {
+  --color-bg: #1C2139;
+  --color-accent: #CDBB88;
+  --color-text: #FAFAFA;
+}
+
+body {
+  @apply bg-bg text-text transition-colors duration-300;
+}
