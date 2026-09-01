@@ -1,109 +1,19 @@
-/* ============================================
-   Global Styles & Theme System
-   ============================================ */
+@import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@custom-variant dark (&:where(.dark, .dark *));
 
-/* ---------- CSS Reset ---------- */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@theme {
+  --color-bg: #FAFAFA;
+  --color-accent: #CDBB88;
+  --color-text: #262D4D;
 }
 
-/* ---------- Theme Variables (Light — default) ---------- */
-:root {
-  /* Backgrounds */
-  --color-bg:           #F7F8FA;
-  --color-navbar-bg:    rgba(255, 255, 255, 0.80);
-  --color-surface:      #FFFFFF;
-
-  /* Text */
-  --color-text-primary:   #0F172A;
-  --color-text-secondary: #475569;
-  --color-text-muted:     #94A3B8;
-
-  /* Accent */
-  --color-accent:         #2563EB;
-  --color-accent-hover:   #1D4ED8;
-  --color-accent-text:    #FFFFFF;
-
-  /* Borders */
-  --color-border:         rgba(15, 23, 42, 0.08);
-
-  /* Overlay */
-  --color-overlay:        rgba(15, 23, 42, 0.40);
-
-  /* Nav link hover */
-  --color-nav-hover:      #2563EB;
-  --color-nav-active:     #1E40AF;
-
-  /* Shadows */
-  --shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-
-  /* Transitions */
-  --transition-theme: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-}
-
-/* ---------- Theme Variables (Dark) ---------- */
 .dark {
-  --color-bg:           #0B0F19;
-  --color-navbar-bg:    rgba(11, 15, 25, 0.80);
-  --color-surface:      #111827;
-
-  --color-text-primary:   #F1F5F9;
-  --color-text-secondary: #CBD5E1;
-  --color-text-muted:     #64748B;
-
-  --color-accent:         #3B82F6;
-  --color-accent-hover:   #60A5FA;
-  --color-accent-text:    #FFFFFF;
-
-  --color-border:         rgba(241, 245, 249, 0.06);
-
-  --color-overlay:        rgba(0, 0, 0, 0.60);
-
-  --color-nav-hover:      #60A5FA;
-  --color-nav-active:     #93C5FD;
-
-  --shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.30), 0 1px 2px rgba(0, 0, 0, 0.20);
-}
-
-/* ---------- Base Styles ---------- */
-html {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-bg: #1C2139;
+  --color-accent: #CDBB88;
+  --color-text: #FAFAFA;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  transition: var(--transition-theme);
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul, ol {
-  list-style: none;
-}
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+  @apply bg-bg text-text transition-colors duration-300;
 }
