@@ -1,4 +1,6 @@
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/layout/Footer/Footer";
+
+
 
 
 
