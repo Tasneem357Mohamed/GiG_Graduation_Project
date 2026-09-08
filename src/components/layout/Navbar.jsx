@@ -26,7 +26,8 @@ export default function Navbar() {
         {/* Logo */}
         <a 
           href="#home" 
-          className="font-display font-normal text-2xl leading-8 tracking-[1px] text-[#10152E] dark:text-white flex items-center"
+          className="font-normal text-2xl leading-8 tracking-[1px] text-[#10152E] dark:text-white flex items-center"
+          style={{ fontFamily: '"Playfair Display", serif' }}
           onClick={() => handleLinkClick('#home')}
         >
           Pro<span className="text-[#CDBB88]">Serv</span>
@@ -38,11 +39,12 @@ export default function Navbar() {
             <li key={href}>
               <a
                 href={href}
-                className={`font-display font-light text-base leading-6 tracking-[1px] transition-colors px-2 py-1 ${
+                className={`font-light text-lg leading-7 tracking-[1px] transition-colors px-2 py-1 ${
                   activeLink === href 
                     ? 'text-[#CDBB88]' 
                     : 'text-[#10152E] dark:text-gray-300 hover:text-[#CDBB88]'
                 }`}
+                style={{ fontFamily: '"Playfair Display", serif' }}
                 onClick={() => handleLinkClick(href)}
               >
                 {label}
@@ -79,11 +81,12 @@ export default function Navbar() {
             <a
               key={href}
               href={href}
-              className={`block font-display font-light text-base leading-6 tracking-[1px] transition-colors py-3 px-4 rounded-md ${
+              className={`block font-light text-lg leading-7 tracking-[1px] transition-colors py-3 px-4 rounded-md ${
                 activeLink === href 
                   ? 'text-[#CDBB88] bg-gray-50 dark:bg-gray-800/50' 
                   : 'text-[#10152E] dark:text-gray-300 hover:text-[#CDBB88] hover:bg-gray-50 dark:hover:bg-gray-800/50'
               }`}
+              style={{ fontFamily: '"Playfair Display", serif' }}
               onClick={() => handleLinkClick(href)}
             >
               {label}
