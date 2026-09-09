@@ -1,4 +1,5 @@
 
+
 import Footer from "./components/layout/Footer/Footer";
 import Services from './pages/Services/Services';
 
@@ -15,7 +16,7 @@ return (
    <Services/>
      <Footer/>
     </>
-)
+);
 
   
 }

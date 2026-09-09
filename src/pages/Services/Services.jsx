@@ -6,7 +6,7 @@ import service4 from "../../assets/images/service.png"
 export default function Services() {
   return (
    <>
-   <section className="services bg-[#FAFAFA] dark:bg-[#1C2139]">
+   <section className="services bg-bg dark:bg-[#1C2139]">
     <div className='text-center mb-16'>
         <h2 className='uppercase font-display font-normal text-5xl leading-16.5 text-[#10152E] dark:text-white mb-1'>Services</h2>
     <span className='uppercase font-display font-light text-[20px] leading-7.5 text-[#10152E]  dark:text-white'>What we do best</span>
