@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FiMapPin, FiPhone, FiMail } from "react-icons/fi";
 
+const API_URL = "https://gig-program-apis-production.up.railway.app/api/contact/";
+
 const contactInfo = [
   {
     icon: FiMapPin,
@@ -27,15 +29,59 @@ const ContactUs = () => {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          subject: formData.subject || "New Contact Form Submission",
+          fields: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            message: formData.message,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.detail || `Request failed with status ${response.status}`
+        );
+      }
+
+      setStatus("success");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -91,6 +137,24 @@ const ContactUs = () => {
 
       {/* Contact Form */}
       <section className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+        {/* Success Message */}
+        {status === "success" && (
+          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md">
+            <p className="text-green-800 dark:text-green-300 text-sm text-center">
+              ✓ Your message has been sent successfully. We&apos;ll get back to you soon!
+            </p>
+          </div>
+        )}
+
+        {/* Error Message */}
+        {status === "error" && (
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+            <p className="text-red-800 dark:text-red-300 text-sm text-center">
+              ✗ {errorMsg}
+            </p>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -196,10 +260,37 @@ const ContactUs = () => {
           <div className="flex justify-end pt-4">
             <button
               type="submit"
-              className="bg-[#10152E] dark:bg-[#CDBB88] text-white px-10 py-3 text-sm tracking-[2px] font-light hover:bg-[#1a2347] dark:hover:bg-[#b8a672] transition-colors rounded-sm cursor-pointer"
+              disabled={status === "loading"}
+              className="bg-[#10152E] dark:bg-[#CDBB88] text-white px-10 py-3 text-sm tracking-[2px] font-light hover:bg-[#1a2347] dark:hover:bg-[#b8a672] transition-colors rounded-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ fontFamily: '"Playfair Display", serif' }}
             >
-              SEND
+              {status === "loading" ? (
+                <span className="flex items-center gap-2">
+                  <svg
+                    className="animate-spin h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                  SENDING...
+                </span>
+              ) : (
+                "SEND"
+              )}
             </button>
           </div>
         </form>
