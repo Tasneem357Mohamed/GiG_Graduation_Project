@@ -3,6 +3,8 @@ import service1 from "../../assets/images/image (1).png"
 import service2 from "../../assets/images/image (2).png"
 import service3 from "../../assets/images/service (1).png"
 import service4 from "../../assets/images/service.png"
+import StrategicPlanningServices from "../../components/layout/Single_Service";
+import { Link } from "react-router-dom";
 export default function Services() {
   return (
    <>
@@ -23,15 +25,40 @@ export default function Services() {
 <p className='text-[#4E5265]  dark:text-[#CCCED5]            text-[16px] leading-6 font-light  mb-6'  >mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
 <p  className='text-[#4E5265]   dark:text-[#CCCED5]               text-[16px] leading-6 font-light'>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus</p>
   </div>
-        <div className='flex gap-6  mb-6 flex-wrap  md:flex-nowrap'>
-            <div className='w-full  md:w-1/2'>
-                <img src={service1} alt="" className='w-full'/>
-            </div>
-         <div className='w-full  md:w-1/2 '>   
-            <h3 className='uppercase font-normal text-2xl leading-8 text-[#10152E] dark:text-white mb-3'>Strategic Planning Services</h3>
-            <p className='font-light text-[16px] text-[#4E5265]  dark:text-[#CCCED5]  leading-6'>Our Strategic Planning Services are designed to help you set clear<br/> goals and map out a path to achieve them. We work closely with you to<br/>  develop actionable strategies that align with your vision and priorities,<br/> 
-             ensuring every step moves you closer to success.</p></div>
-        </div>
+
+
+
+      <Link 
+  to="/strategic-planning"
+  className="block"
+>
+  <div className='flex gap-6 mb-6 flex-wrap md:flex-nowrap cursor-pointer'>
+    
+    <div className='w-full md:w-1/2'>
+      <img 
+        src={service1} 
+        alt="Strategic Planning Services" 
+        className='w-full'
+      />
+    </div>
+
+    <div className='w-full md:w-1/2'>
+      <h3 className='uppercase font-normal text-2xl leading-8 text-[#10152E] dark:text-white mb-3'>
+        Strategic Planning Services
+      </h3>
+
+      <p className='font-light text-[16px] text-[#4E5265] dark:text-[#CCCED5] leading-6'>
+        Our Strategic Planning Services are designed to help you set clear
+        goals and map out a path to achieve them. We work closely with you to
+        develop actionable strategies that align with your vision and priorities,
+        ensuring every step moves you closer to success.
+      </p>
+    </div>
+
+  </div>
+</Link>
+
+
          <div>
           
             <div className='flex  mb-6 gap-6 flex-wrap md:flex-nowrap'>
