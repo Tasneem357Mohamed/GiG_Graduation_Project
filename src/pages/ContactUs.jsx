@@ -85,7 +85,7 @@ const ContactUs = () => {
   };
 
   return (
-    <main className="min-h-screen">
+    <main id="contact" className="min-h-screen">
       {/* Hero Section */}
       <header className="text-center py-16 md:py-24">
         <h1

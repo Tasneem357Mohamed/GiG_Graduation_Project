@@ -14,6 +14,11 @@
   --color-text: #FAFAFA;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
 body {
   @apply bg-bg text-text transition-colors duration-300;
 }
