@@ -29,6 +29,11 @@ function App() {
       <Routes>
         {/* Main single-page with all sections */}
         <Route path="/" element={<LandingPage />} />
+        
+        {/* Individual standalone pages */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<ContactUs />} />
 
         {/* Sub-pages that need their own route */}
         <Route path="/service/:id" element={<SingleService />} />
