@@ -57,7 +57,7 @@ export default function StrategicPlanningServices() {
    {/*  first navbar from tasneem */}
        
       <main>
-          <Navbar />
+          {/* <Navbar /> */}
         {/* ── Hero ── */}
         <section className="mx-auto max-w-6xl px-6 pt-10 text-center md:pt-14">
           <p className="mb-3 text-[11px] text-stone-400">Home /</p>
