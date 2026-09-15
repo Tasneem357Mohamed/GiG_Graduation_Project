@@ -1,6 +1,6 @@
 .heroSection
 {
-    background-image: url('src/assets/images/main.png');
+    background-image: url('/main.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
