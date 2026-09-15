@@ -1,6 +1,4 @@
-import React from "react";
-import  Navbar  from "./Navbar";
-import Footer  from "./Footer";
+import React, { useState } from "react";
 import img1 from "../../assets/images/img1-dev4.png";
 import img2 from "../../assets/images/img2.png"
 import img3 from "../../assets/images/img3.png"
@@ -11,6 +9,7 @@ import img7 from "../../assets/images/img7.png"
 import img10 from "../../assets/images/image (10).png"
 import img11 from "../../assets/images/image (11).png"
 
+const API_URL = "https://gig-program-apis-production.up.railway.app/api/contact/";
 
 const projectImages = [
   { label: "Living room with reading nook", src: img2 },
@@ -38,7 +37,6 @@ const testimonials = [
   },
 ];
 
-
 // Reusable placeholder block — swap for a real <img> when you wire in assets
 function ImagePlaceholder({ label, className = "" }) {
   return (
@@ -52,12 +50,77 @@ function ImagePlaceholder({ label, className = "" }) {
 }
 
 export default function StrategicPlanningServices() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMsg("");
+
+    // Split the name into firstName and lastName for the API
+    const nameParts = formData.name.trim().split(" ");
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "";
+    
+    // Include the phone number in the message since the API expects only message
+    const fullMessage = `Phone: ${formData.phone}\n\n${formData.message}`;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          subject: "Service Inquiry", // Or you can make this dynamic
+          fields: {
+            firstName: firstName,
+            lastName: lastName,
+            message: fullMessage,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.detail || `Request failed with status ${response.status}`
+        );
+      }
+
+      setStatus("success");
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+      });
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err.message || "Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-[#fbfaf8] font-sans text-[#4a4f66]">
-   {/*  first navbar from tasneem */}
-       
       <main>
-          {/* <Navbar /> */}
         {/* ── Hero ── */}
         <section className="mx-auto max-w-6xl px-6 pt-10 text-center md:pt-14">
           <p className="mb-3 text-[11px] text-stone-400">Home /</p>
@@ -74,6 +137,7 @@ export default function StrategicPlanningServices() {
 
           <img src={img1}
             className="mt-10 aspect-[16/7] w-full"
+            alt="Hero"
           />
 
           <div className="mx-auto mt-12 mb-16 grid max-w-3xl gap-4 text-left md:mt-14">
@@ -127,7 +191,7 @@ export default function StrategicPlanningServices() {
             {testimonials.map((t) => (
               <li key={t.name} className="grid grid-cols-[44px_1fr] gap-5 md:grid-cols-[56px_1fr]">
                 <img src={t.src}
-                  label={`${t.name} avatar`}
+                  alt={`${t.name} avatar`}
                   className="h-11 w-11 rounded-full text-[9px] md:h-14 md:w-14"
                 />
                 <div>
@@ -152,12 +216,15 @@ export default function StrategicPlanningServices() {
             </p>
           </div>
 
-          <form className="grid gap-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="grid gap-4" onSubmit={handleSubmit}>
             <label className="grid gap-2 text-[13px] text-[#2f3550]">
               <span>Name</span>
               <input
                 type="text"
                 name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
                 placeholder="Placeholder text"
                 className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
               />
@@ -168,6 +235,8 @@ export default function StrategicPlanningServices() {
               <input
                 type="tel"
                 name="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 placeholder="Placeholder text"
                 className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
               />
@@ -178,6 +247,9 @@ export default function StrategicPlanningServices() {
               <input
                 type="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
                 placeholder="Placeholder text"
                 className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
               />
@@ -188,29 +260,36 @@ export default function StrategicPlanningServices() {
               <textarea
                 name="message"
                 rows={4}
+                value={formData.message}
+                onChange={handleChange}
+                required
                 placeholder="Placeholder text"
                 className="resize-y rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
               />
             </label>
 
+            {status === "success" && (
+              <p className="text-green-600 text-sm">✓ Your message has been sent successfully!</p>
+            )}
+            {status === "error" && (
+              <p className="text-red-600 text-sm">✗ {errorMsg}</p>
+            )}
+
             <button
               type="submit"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[#2f3550] px-5 py-3 text-sm text-[#2f3550] transition-colors hover:bg-[#2f3550] hover:text-white"
+              disabled={status === 'loading'}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[#2f3550] px-5 py-3 text-sm text-[#2f3550] transition-colors hover:bg-[#2f3550] hover:text-white disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Send <SendIcon />
+              {status === 'loading' ? 'Sending...' : 'Send'} <SendIcon />
             </button>
           </form>
         </section>
-         {/* <Footer /> */}
       </main>
-     
     </div>
-    //   <Footer />
   );
 }
 
-/* ── Inline icon components (swap for your own icon set if you have one) ── */
-
+/* ── Inline icon components ── */
 function SendIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -218,4 +297,3 @@ function SendIcon() {
     </svg>
   );
 }
-

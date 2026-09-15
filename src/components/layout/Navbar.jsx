@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 
@@ -13,6 +13,15 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const handleNavClick = (to) => {
+    setIsOpen(false);
+    // If the user clicks the link of the page they are already on, scroll to top
+    if (location.pathname === to) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white dark:bg-[#0B0F19] border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
@@ -21,7 +30,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link 
           to="/"
-          onClick={() => setIsOpen(false)}
+          onClick={() => handleNavClick('/')}
           className="font-normal text-2xl leading-8 tracking-[1px] text-[#10152E] dark:text-white flex items-center bg-transparent border-none"
           style={{ fontFamily: '"Playfair Display", serif' }}
         >
@@ -35,6 +44,7 @@ export default function Navbar() {
               <NavLink
                 to={to}
                 end={to === '/'}
+                onClick={() => handleNavClick(to)}
                 className={({ isActive }) =>
                   `font-light text-lg leading-7 tracking-[1px] transition-colors px-2 py-1 bg-transparent border-none ${
                     isActive
@@ -79,7 +89,7 @@ export default function Navbar() {
               key={to}
               to={to}
               end={to === '/'}
-              onClick={() => setIsOpen(false)}
+              onClick={() => handleNavClick(to)}
               className={({ isActive }) =>
                 `block font-light text-lg leading-7 tracking-[1px] transition-colors py-3 px-4 rounded-md text-left bg-transparent border-none ${
                   isActive
