@@ -7,7 +7,7 @@ export default function Services() {
   return (
    <>
 
-   <section className="services bg-bg dark:bg-[#1C2139]">
+   <section id="services" className="services bg-bg dark:bg-[#1C2139]">
 
   
 

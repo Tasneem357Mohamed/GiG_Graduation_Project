@@ -5,7 +5,7 @@ import homeStyles from '../assets/styles/home.module.css'
 const HomePage = () =>
 {
     return(
-        <div className="flex flex-col w-12xl min-h-screen">
+        <div id="home" className="flex flex-col w-12xl min-h-screen">
             {/* <NavBar/> */}
             <div className="flex flex-col w-full">
                 <main className={`w-full h-[80vh] relative ${homeStyles.heroSection}`}>
@@ -15,8 +15,7 @@ const HomePage = () =>
                         <button className="bg-[#CDBB88] text-[#FFFFFF] md:text-2xl text-xl w-40 h-12 rounded-md">Get in touch</button>
                     </div>
                 </main>
-                {/* Services Section */}
-                <section className="h-screen"></section>
+
             </div>
             {/* <Footer/> */}
         </div>

@@ -7,6 +7,19 @@ import HomePage from "./pages/Home";
 import AboutPage from "./pages/AboutUs";
 import Services from "./pages/Services/Services";
 import ContactUs from "./pages/ContactUs";
+import SingleService from "./components/layout/Single_Service";
+
+// Main landing page — all sections stacked vertically
+function LandingPage() {
+  return (
+    <>
+      <HomePage />
+      <Services />
+      <AboutPage />
+      <ContactUs />
+    </>
+  );
+}
 
 function App() {
   return (
@@ -14,10 +27,11 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<ContactUs />} />
+        {/* Main single-page with all sections */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Sub-pages that need their own route */}
+        <Route path="/service/:id" element={<SingleService />} />
       </Routes>
 
       <Footer />

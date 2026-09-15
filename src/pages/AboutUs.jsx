@@ -2,7 +2,7 @@ import aboutImage from "../assets/images/about.png";
 
 const AboutUs = () => {
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center m-3 md:m-5">
+    <main id="about" className="min-h-screen flex flex-col justify-center items-center m-3 md:m-5">
       <header className="text-center my-12 md:my-20">
         <h1 className="text-5xl mb-2">Our company</h1>
         <p className="text-text/70">Guided by principles, driven by results</p>
