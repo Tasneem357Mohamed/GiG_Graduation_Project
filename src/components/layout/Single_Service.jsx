@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import img1 from "../../assets/images/img1-dev4.png";
 import img2 from "../../assets/images/img2.png"
 import img3 from "../../assets/images/img3.png"
@@ -36,18 +36,6 @@ const testimonials = [
     src:img11
   },
 ];
-
-// Reusable placeholder block — swap for a real <img> when you wire in assets
-function ImagePlaceholder({ label, className = "" }) {
-  return (
-    <div
-      data-image-slot={label}
-      className={`flex items-center justify-center border border-dashed border-stone-300 bg-stone-100 p-2 text-center text-[11px] text-stone-400 ${className}`}
-    >
-      {label}
-    </div>
-  );
-}
 
 export default function StrategicPlanningServices() {
   const [formData, setFormData] = useState({
@@ -119,15 +107,15 @@ export default function StrategicPlanningServices() {
   };
 
   return (
-    <div className="bg-[#fbfaf8] font-sans text-[#4a4f66]">
+    <div className="bg-[#fbfaf8] font-sans text-[#4a4f66] transition-colors duration-300 dark:bg-[#1C2139] dark:text-[#CCCED5]">
       <main>
         {/* ── Hero ── */}
         <section className="mx-auto max-w-6xl px-6 pt-10 text-center md:pt-14">
           <p className="mb-3 text-[11px] text-stone-400">Home /</p>
-          <h1 className="text-3xl font-normal text-[#2f3550] md:text-4xl">
+          <h1 className="text-3xl font-normal text-[#2f3550] dark:text-white md:text-4xl">
             Strategic Planning Services
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-[#4a4f66]">
+          <p className="mx-auto mt-4 max-w-xl text-[#4a4f66] dark:text-[#CCCED5]">
             Our Strategic Planning Services are designed to help you set
             clear goals and map out a path to achieve them. We work closely
             with you to develop actionable strategies that align with your
@@ -136,12 +124,12 @@ export default function StrategicPlanningServices() {
           </p>
 
           <img src={img1}
-            className="mt-10 aspect-[16/7] w-full"
+            className="mt-10 aspect-16/7 w-full"
             alt="Hero"
           />
 
           <div className="mx-auto mt-12 mb-16 grid max-w-3xl gap-4 text-left md:mt-14">
-            <h2 className="text-2xl font-normal text-[#2f3550] md:text-[28px]">
+            <h2 className="text-2xl font-normal text-[#2f3550] dark:text-white md:text-[28px]">
               Our process
             </h2>
             <p className="leading-relaxed">
@@ -162,15 +150,15 @@ export default function StrategicPlanningServices() {
         </section>
 
        {/* ── Previous projects ── */}
-<section className="bg-stone-100 px-6 py-16 md:py-20">
-  <h2 className="mb-10 text-center text-2xl font-normal text-[#2f3550] md:mb-12 md:text-[28px]">
+<section className="bg-stone-100 px-6 py-16 dark:bg-[#252B46] md:py-20">
+  <h2 className="mb-10 text-center text-2xl font-normal text-[#2f3550] dark:text-white md:mb-12 md:text-[28px]">
     Previous projects
   </h2>
   <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
     {projectImages.map((project, i) => (
       <div
         key={i}
-        className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[3/4]"
+        className="relative aspect-4/3 w-full overflow-hidden md:aspect-3/4"
       >
         <img
           src={project.src}
@@ -184,7 +172,7 @@ export default function StrategicPlanningServices() {
 
         {/* ── Success stories ── */}
         <section className="mx-auto max-w-3xl px-6 py-16 md:py-20">
-          <h2 className="mb-10 text-center text-2xl font-normal text-[#2f3550] md:mb-12 md:text-[28px]">
+          <h2 className="mb-10 text-center text-2xl font-normal text-[#2f3550] dark:text-white md:mb-12 md:text-[28px]">
             Success stories
           </h2>
           <ul className="grid gap-10">
@@ -196,7 +184,7 @@ export default function StrategicPlanningServices() {
                 />
                 <div>
                   <p className="mb-3 leading-relaxed">{t.quote}</p>
-                  <p className="mt-1 text-sm text-[#2f3550]">{t.name}</p>
+                  <p className="mt-1 text-sm text-[#2f3550] dark:text-white">{t.name}</p>
                   <p className="mt-0.5 text-[13px] text-stone-400">{t.role}</p>
                 </div>
               </li>
@@ -205,9 +193,9 @@ export default function StrategicPlanningServices() {
         </section>
 
         {/* ── Get in touch ── */}
-        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-10 bg-stone-100 px-6 py-16 md:grid-cols-2 md:gap-12 md:py-20">
+        <section className="mx-auto grid max-w-6xl grid-cols-1 gap-10 bg-stone-100 px-6 py-16 dark:bg-[#252B46] md:grid-cols-2 md:gap-12 md:py-20">
           <div>
-            <h2 className="relative mb-4 inline-block pb-4 text-2xl font-normal text-[#2f3550] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-12 after:bg-[#c9a24a] md:text-[28px]">
+            <h2 className="relative mb-4 inline-block pb-4 text-2xl font-normal text-[#2f3550] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-12 after:bg-[#c9a24a] dark:text-white md:text-[28px]">
               Get in touch
             </h2>
             <p className="max-w-xs">
@@ -217,7 +205,7 @@ export default function StrategicPlanningServices() {
           </div>
 
           <form className="grid gap-4" onSubmit={handleSubmit}>
-            <label className="grid gap-2 text-[13px] text-[#2f3550]">
+            <label className="grid gap-2 text-[13px] text-[#2f3550] dark:text-white">
               <span>Name</span>
               <input
                 type="text"
@@ -226,11 +214,11 @@ export default function StrategicPlanningServices() {
                 onChange={handleChange}
                 required
                 placeholder="Placeholder text"
-                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
+                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a] dark:border-gray-600 dark:bg-[#1C2139] dark:text-white dark:placeholder-gray-400"
               />
             </label>
 
-            <label className="grid gap-2 text-[13px] text-[#2f3550]">
+            <label className="grid gap-2 text-[13px] text-[#2f3550] dark:text-white">
               <span>Phone number</span>
               <input
                 type="tel"
@@ -238,11 +226,11 @@ export default function StrategicPlanningServices() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Placeholder text"
-                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
+                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a] dark:border-gray-600 dark:bg-[#1C2139] dark:text-white dark:placeholder-gray-400"
               />
             </label>
 
-            <label className="grid gap-2 text-[13px] text-[#2f3550]">
+            <label className="grid gap-2 text-[13px] text-[#2f3550] dark:text-white">
               <span>Email</span>
               <input
                 type="email"
@@ -251,11 +239,11 @@ export default function StrategicPlanningServices() {
                 onChange={handleChange}
                 required
                 placeholder="Placeholder text"
-                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
+                className="rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a] dark:border-gray-600 dark:bg-[#1C2139] dark:text-white dark:placeholder-gray-400"
               />
             </label>
 
-            <label className="grid gap-2 text-[13px] text-[#2f3550]">
+            <label className="grid gap-2 text-[13px] text-[#2f3550] dark:text-white">
               <span>Your message</span>
               <textarea
                 name="message"
@@ -264,21 +252,21 @@ export default function StrategicPlanningServices() {
                 onChange={handleChange}
                 required
                 placeholder="Placeholder text"
-                className="resize-y rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a]"
+                className="resize-y rounded-sm border border-stone-200 bg-white px-3.5 py-3 text-[#4a4f66] outline-none focus:ring-2 focus:ring-[#c9a24a] dark:border-gray-600 dark:bg-[#1C2139] dark:text-white dark:placeholder-gray-400"
               />
             </label>
 
             {status === "success" && (
-              <p className="text-green-600 text-sm">✓ Your message has been sent successfully!</p>
+              <p className="text-green-600 text-sm dark:text-green-300">✓ Your message has been sent successfully!</p>
             )}
             {status === "error" && (
-              <p className="text-red-600 text-sm">✗ {errorMsg}</p>
+              <p className="text-red-600 text-sm dark:text-red-300">✗ {errorMsg}</p>
             )}
 
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[#2f3550] px-5 py-3 text-sm text-[#2f3550] transition-colors hover:bg-[#2f3550] hover:text-white disabled:opacity-60 disabled:cursor-not-allowed"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[#2f3550] px-5 py-3 text-sm text-[#2f3550] transition-colors hover:bg-[#2f3550] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#1C2139] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === 'loading' ? 'Sending...' : 'Send'} <SendIcon />
             </button>
