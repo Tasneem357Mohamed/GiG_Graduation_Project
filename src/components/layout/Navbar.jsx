@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
-import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
+import { FiSun, FiMoon, FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
+import { useAuth } from '../../context/AuthContext';
 
 const NAV_ITEMS = [
   { label: 'Home', to: '/' },
@@ -13,7 +14,11 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, token, logout } = useAuth();
 
   const handleNavClick = (to) => {
     setIsOpen(false);
@@ -22,6 +27,23 @@ export default function Navbar() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  const handleLogout = () => {
+    logout();
+    setIsDropdownOpen(false);
+    navigate('/');
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white dark:bg-[#0B0F19] border-b border-gray-200 dark:border-gray-800 transition-colors duration-200">
@@ -69,6 +91,44 @@ export default function Navbar() {
           >
             {theme === 'dark' ? <FiSun size={20} /> : <FiMoon size={20} />}
           </button>
+
+          {/* Auth Section */}
+          <div className="relative" ref={dropdownRef}>
+            {token ? (
+              <div 
+                className="flex items-center gap-2 cursor-pointer text-[#10152E] dark:text-gray-200 hover:text-[#CDBB88] transition-colors"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span className="font-medium hidden sm:block">
+                  Hello, {user?.name || user?.email?.split('@')[0] || 'User'}
+                </span>
+                <div className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-200 dark:border-gray-700 hover:border-[#CDBB88]">
+                  <FiUser size={20} />
+                </div>
+              </div>
+            ) : (
+              <Link 
+                to="/auth"
+                className="flex items-center justify-center w-10 h-10 rounded-md border border-gray-200 dark:border-gray-700 bg-transparent text-[#10152E] dark:text-gray-200 hover:border-[#CDBB88] hover:text-[#CDBB88] transition-colors"
+                aria-label="Login"
+              >
+                <FiUser size={20} />
+              </Link>
+            )}
+
+            {/* Auth Dropdown */}
+            {isDropdownOpen && token && (
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#0B0F19] border border-gray-200 dark:border-gray-800 rounded-md shadow-lg py-1 z-50">
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-[#10152E] dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 flex items-center gap-2"
+                >
+                  <FiLogOut size={16} />
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Mobile & Tablet Menu Toggle */}
           <button 
