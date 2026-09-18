@@ -2,6 +2,8 @@
 
 A small React frontend for a professional services company landing page and client portal. It includes public marketing sections (home, about, services), a contact form, and a login/signup flow that unlocks protected service pages and contact access.
 
+ ` vercel url ` : https://gig-graduation-project.vercel.app/ 
+
 ## Tech stack
 
 - Frontend: React 19 + Vite
