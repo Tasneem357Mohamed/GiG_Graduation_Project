@@ -133,7 +133,4 @@ POST /api/contact/
 
 The frontend does not include a separate backend service in this repository; it consumes the external Railway-hosted API directly.
 
-## Notes
 
-- This is a course project frontend with a marketing-style business website and auth flow rather than a full production backend or library.
-- The repo contains the client/UI code only; the backend API endpoints are external and are not included here.
