@@ -114,7 +114,7 @@ export function AuthProvider({ children }) {
       const res = await fetch("https://gig-program-apis-production.up.railway.app/api/register/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, profile: profile_data || {} })
+        body: JSON.stringify({ email, password, profile_data:{} })
       });
 
       if (res.ok) {
